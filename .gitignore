@@ -220,3 +220,10 @@ Temp
 *.unityproj
 *.sln
 *.userprefs
+
+Assets/Standard Assets/
+Assets/Standard Assets (Mobile)/
+Assets/Xffect/
+Assets/_A_test/
+Assets/AsterPathfindingEditor/
+Assets/Plugins/
