@@ -20,9 +20,9 @@ private var crashedTime : int;
 var nextDir : Vector3;
 
 
-defaultSpeed = 10.0f;
-acceleration = 0.05f;
-interval = 0.2f;
+defaultSpeed = 0.45;
+acceleration = 0.003;
+interval = 0.2;
 crashedTime = 0;
 
 curState = EnemyState.NORMAL;
@@ -42,7 +42,7 @@ function Update()
 			if( speed > defaultSpeed + interval ){
 				speed -= acceleration;
 			}
-			rigidbody.velocity = nextDir * speed;
+			transform.position += nextDir * speed;
 			break;
 		case EnemyState.CRASHED:
 			speed = 0.0f;
@@ -62,12 +62,12 @@ function Update()
 			break;
 	}
 	
-	rigidbody.velocity = nextDir * speed;
+	transform.position += nextDir * speed;
 }
 
 
 // Process collision
-function OnCollisionEnter( col : Collision )
+function OnTriggerEnter( col : Collider )
 {
 	// Collide with item.
 	if( col.gameObject.tag == "Attack" ){

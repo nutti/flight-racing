@@ -1,6 +1,9 @@
 ﻿#pragma strict
 
-var speed = 0.003;
+var speed = 0.000;
+var angularSpeed = 1.5;
+var acceleration = 0.001;
+var maxSpeed = 0.45;
 var dirAngle : Vector3;
 
 var items : Transform[];
@@ -77,6 +80,14 @@ function UpdateInputStats()
 	}
 }
 
+function UpdateSpeed()
+{
+	speed += acceleration;
+	if( speed > maxSpeed ){
+		speed = maxSpeed;
+	}
+}
+
 
 function Update()
 {
@@ -84,18 +95,22 @@ function Update()
 	// Update input status.
 	UpdateInputStats();
 
-	if( inputStats[ InputState.RIGHT ] ){
+	if( inputStats[ InputState.RIGHT ] ){			// [TODO] bug
 		dirAngle.x += Mathf.Deg2Rad * 0.5;
+		transform.Rotate( Vector3( 1, 0, 0 ), - angularSpeed );
 	}
-	else if( inputStats[ InputState.LEFT ] ){
+	else if( inputStats[ InputState.LEFT ] ){		// [TODO] bug
 		dirAngle.x -= Mathf.Deg2Rad * 0.5;
+		transform.Rotate( Vector3( 1, 0, 0 ), angularSpeed );
 	}
 	
-	if( inputStats[ InputState.UP ] ){
+	if( inputStats[ InputState.UP ] ){				// [TODO] bug
 		dirAngle.y -= Mathf.Deg2Rad * 0.5;
+		transform.Rotate( Vector3( 0, 1, 0 ), angularSpeed, Space.World );
 	}
-	else if( inputStats[ InputState.DOWN ] ){
+	else if( inputStats[ InputState.DOWN ] ){		// [TODO] bug
 		dirAngle.y += Mathf.Deg2Rad * 0.5;
+		transform.Rotate( Vector3( 0, 1, 0 ), - angularSpeed, Space.World );
 	}
 	
 	
@@ -103,10 +118,13 @@ function Update()
 		UseItem();
 	}
 	
+	UpdateSpeed();
 
-	transform.position.x -= speed * Mathf.Sin( dirAngle.y ) * Mathf.Cos( dirAngle.x );
+	/*transform.position.x -= speed * Mathf.Sin( dirAngle.y ) * Mathf.Cos( dirAngle.x );
 	transform.position.y += speed * Mathf.Sin( dirAngle.x );
-	transform.position.z += speed * Mathf.Cos( dirAngle.y ) * Mathf.Cos( dirAngle.x );
+	transform.position.z += speed * Mathf.Cos( dirAngle.y ) * Mathf.Cos( dirAngle.x );*/
+	
+	transform.Translate( 0, 0, speed );
 
 	// barrier.
 	if( barrierTime > 0 ){
@@ -160,6 +178,13 @@ function OnTriggerEnter( col : Collider )
 	// Collide with attack.
 	if( col.gameObject.tag == "Attack" ){
 		col.gameObject.SendMessage( "CollidedByPlayer" );
+	}
+	// Colide with wall.
+	if( col.gameObject.tag == "Wall" ){
+		speed = -speed * 0.1;
+		if( speed > -0.03 ){
+			speed = -0.03;
+		}
 	}
 }
 

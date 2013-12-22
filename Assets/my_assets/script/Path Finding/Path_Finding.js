@@ -1,9 +1,13 @@
 ﻿#pragma strict
 
+import System.Collections.Generic;
+
 var speed : float;
 var allowance : float;
 private var nextTarget : int;	// next target.
 private var targetTotal : int;	// total number of target.
+
+private var nodeList : List.<Transform>;	// path finding node list.
 
 var nextDir : Vector3;		// Next direction.
 
@@ -11,11 +15,44 @@ speed = 0.1f;
 nextTarget = 0;
 allowance = 1.0f;
 
+function Start()
+{
+	Initialize();
+}
+
+
+
+function Initialize()
+{
+	var pathNodeParent : GameObject;
+	
+	pathNodeParent = GameObject.Find( "Path Finding/Path Node Group" );
+	
+	var nodeTotal : int;
+	nodeTotal = pathNodeParent.gameObject.transform.childCount;
+	
+	nodeList = new List.<Transform>();
+	for( var i : int = 0; i < nodeTotal; ++i ){
+		nodeList.Add( pathNodeParent.gameObject.transform.GetChild( i ) );
+	}
+	
+	nodeList.Sort( function  ( a : Transform, b : Transform ){
+		return a.GetComponent( Path_Finding_Node ).id - b.GetComponent( Path_Finding_Node ).id;
+	} );
+	
+	print( nodeList.Count );
+	
+	//var id : int;
+	
+	//id = nodeList.GetComponent( "Path_Finding_Node" ).id;
+}
+
+
 function FindNextPos() : Vector3
 {
 	var pathNodes : GameObject;		// path node groups.
 	
-	pathNodes = GameObject.Find( "Path Finding/Enemy Path Node Group" );
+	pathNodes = GameObject.Find( "Path Finding/Path Node Group" );
 
 	targetTotal = pathNodes.gameObject.transform.childCount;
 	if( targetTotal <= nextTarget ){

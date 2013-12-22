@@ -17,14 +17,17 @@ function Update()
 	var playerDirAngle : Vector3;
 	playerDirAngle = playerCtrl.GetDirAngle();
 	
-	var posX = player.transform.position.x + rotRadius * Mathf.Sin( playerDirAngle.y ) * Mathf.Cos( playerDirAngle.x );
+	/*var posX = player.transform.position.x + rotRadius * Mathf.Sin( playerDirAngle.y ) * Mathf.Cos( playerDirAngle.x );
 	var posY = player.transform.position.y - rotRadius * Mathf.Sin( playerDirAngle.x );
 	var posZ = player.transform.position.z - rotRadius * Mathf.Cos( playerDirAngle.y ) * Mathf.Cos( playerDirAngle.x );
 	
 	transform.position.x = posX;
 	transform.position.z = posZ;
-	transform.position.y = posY;
+	transform.position.y = posY;*/
+	
+	transform.position = player.transform.position - player.transform.forward * rotRadius;
 	transform.LookAt( player.transform );
+	transform.Translate( 0, 2.0, 0 );
 }
 
 @script AddComponentMenu( "Player/PlayerCamera" )

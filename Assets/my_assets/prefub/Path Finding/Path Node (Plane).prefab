@@ -9,12 +9,12 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 33: {fileID: 3300000}
-  - 135: {fileID: 13500000}
+  - 64: {fileID: 6400000}
   - 23: {fileID: 2300000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: Player
-  m_TagString: Player
+  m_Name: Path Node (Plane)
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,8 +26,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.4798918, y: 15.6336031, z: 11.7513304}
-  m_LocalScale: {x: 3.51049662, y: 3.51049662, z: 3.51049662}
+  m_LocalPosition: {x: 10.1974106, y: -9.76680946, z: -32.8470726}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!23 &2300000
@@ -42,7 +42,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: e4e4cff51dff43545953848c2258e62c, type: 2}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -57,7 +57,20 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6400000
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -66,36 +79,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07fe874bb57f70040bb377d3621b3543, type: 3}
+  m_Script: {fileID: 11500000, guid: 8275627dd961b2d4ca09796b47edd1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  angularSpeed: 1.5
-  acceleration: .000500000024
-  maxSpeed: .449999988
-  dirAngle: {x: 0, y: 0, z: 0}
-  items:
-  - {fileID: 400000, guid: 10a122a43ff950a4c93d43b2a83b23c1, type: 2}
-  - {fileID: 400000, guid: 13cee75079573584ba86222e4e585c18, type: 2}
-  - {fileID: 400000, guid: 4b499a5ea5f3aed4ab591c99fb112214, type: 2}
-  - {fileID: 400000, guid: a285770e8e3716f4aaf84156e757c563, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 400000, guid: 50ef6e895e043dc48a25e7200e45aeba, type: 2}
-  itemID: -1
-  itemNum: 0
---- !u!135 &13500000
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
