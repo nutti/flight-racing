@@ -4,10 +4,11 @@ import System.Collections.Generic;
 
 var speed : float;
 var allowance : float;
-private var nextTarget : int;	// next target.
+var nextTarget : int;	// next target.
 private var targetTotal : int;	// total number of target.
 
 private var nodeList : List.<Transform>;	// path finding node list.
+private var nodes : Transform[];
 
 var nextDir : Vector3;		// Next direction.
 
@@ -19,8 +20,6 @@ function Start()
 {
 	Initialize();
 }
-
-
 
 function Initialize()
 {
@@ -42,26 +41,17 @@ function Initialize()
 	
 	print( nodeList.Count );
 	
-	//var id : int;
-	
-	//id = nodeList.GetComponent( "Path_Finding_Node" ).id;
+	nodes = nodeList.ToArray();
 }
 
 
 function FindNextPos() : Vector3
 {
-	var pathNodes : GameObject;		// path node groups.
-	
-	pathNodes = GameObject.Find( "Path Finding/Path Node Group" );
-
-	targetTotal = pathNodes.gameObject.transform.childCount;
-	if( targetTotal <= nextTarget ){
+	if( nextTarget >= nodes.Length ){
 		nextTarget = 0;
 	}
 	
-	var targetNode = pathNodes.transform.GetChild( nextTarget );		// target node.
-
-	return targetNode.transform.position;
+	return nodes[ nextTarget ].transform.position;
 }
 
 function GetNextDir() : Vector3
@@ -74,23 +64,22 @@ function GetNextDir() : Vector3
 	nextPos = FindNextPos();
 	distance = Vector3.Distance( nextPos, transform.position );
 	
-	if( distance > allowance ){
+	//if( distance > allowance ){
 		dir = nextPos - transform.position;
-		sp = Vector3.Normalize( dir );
-		
-		nextDir = sp;
-		
-		
-		//transform.position.x += sp.x * speed;
-		//transform.position.y += sp.y * speed;
-		//transform.position.z += sp.z * speed;
-	}
-	else{
-		++nextTarget;
-		nextDir = Vector3( 0.0f, 0.0f, 0.0f );
-	}
+		nextDir = dir;
+	//}
+	//else{
+		//++nextTarget;
+		//nextDir = Vector3( 0.0f, 0.0f, 0.0f );
+	//}
 	
 	return nextDir;
+}
+
+function SetNextTarget()
+{
+	print( "te" );
+	++nextTarget;
 }
 
 @script AddComponentMenu( "PathFinding/PathFinding" )
