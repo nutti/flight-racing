@@ -64,21 +64,14 @@ function GetNextDir() : Vector3
 	nextPos = FindNextPos();
 	distance = Vector3.Distance( nextPos, transform.position );
 	
-	//if( distance > allowance ){
-		dir = nextPos - transform.position;
-		nextDir = dir;
-	//}
-	//else{
-		//++nextTarget;
-		//nextDir = Vector3( 0.0f, 0.0f, 0.0f );
-	//}
-	
+	dir = nextPos - transform.position;
+	nextDir = dir;
+
 	return nextDir;
 }
 
 function SetNextTarget()
 {
-	print( "te" );
 	++nextTarget;
 }
 

@@ -68,22 +68,8 @@ function Update()
 			else{
 				angle = inner;
 			}
-			
-			//angle = inner * Mathf.Rad2Deg;
-			
-			/*if( first ){
-				fangle = angle;
-				first = 0;
-				transform.Rotate( -outer, fangle, Space.World );
-			}*/
 	
 			transform.Rotate( -outer, angle, Space.World );
-			
-			
-			
-			GameObject.Find( "outer_vec" ).transform.position = transform.position + outer.normalized * 15.0;
-			
-			//transform.position += nextDir * speed;
 			break;
 		case EnemyState.CRASHED:
 			speed = 0.0f;
@@ -105,9 +91,6 @@ function Update()
 	
 	transform.Translate( 0, 0, speed );
 	curDir = transform.forward;
-	
-	
-	//transform.position += nextDir * speed;
 }
 
 
@@ -117,7 +100,6 @@ function OnTriggerEnter( col : Collider )
 	print( "test" );
 	// Collide with item.
 	if( col.gameObject.tag == "Attack" ){
-		//Slow();
 		col.gameObject.SendMessage( "CollidedByRacer" );
 		return;
 	}

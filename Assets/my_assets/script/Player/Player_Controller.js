@@ -3,6 +3,8 @@
 var speed = 0.000;
 var angularSpeed = 1.5;
 var acceleration = 0.001;
+var mass = 1.0;
+var resistance = 0.0001;
 var maxSpeed = 0.45;
 var dirAngle : Vector3;
 
@@ -19,6 +21,7 @@ enum InputState
 	RIGHT		= 2,
 	LEFT		= 3,
 	USE_ITEM	= 4,
+	ACCELERATE	= 5,
 	INPUT_TOTAL
 }
 
@@ -53,9 +56,10 @@ function GetDirAngle()
 // Update input status.
 function UpdateInputStats()
 {
-	var verticalInput = Input.GetAxis( "Player Vertical Move" );
-	var horizontalInput = Input.GetAxis( "Player Horizontal Move" );
-	var useItemInput = Input.GetAxis( "Use Item" );
+	var verticalInput = Input.GetAxisRaw( "Player Vertical Move" );
+	var horizontalInput = Input.GetAxisRaw( "Player Horizontal Move" );
+	var useItemInput = Input.GetAxisRaw( "Use Item" );
+	var accelInput = Input.GetAxisRaw( "Acceleration" );
 	
 	for( var i = 0; i < InputState.INPUT_TOTAL; ++i ){
 		inputStats[ i ] = false;
@@ -78,11 +82,37 @@ function UpdateInputStats()
 	if( useItemInput > 0 ){
 		inputStats[ InputState.USE_ITEM ] = true;
 	}
+	
+	if( accelInput > 0 ){
+		inputStats[ InputState.ACCELERATE ] = true;
+	}
 }
 
-function UpdateSpeed()
+function tanh( val : float ) : float
 {
-	speed += acceleration;
+	var e = Mathf.Exp( val );
+	
+	return ( e - 1.0f / e ) / ( e + 1.0f / e );
+}
+
+function UpdateSpeed( accel : float )
+{
+/*	var constant : float;
+	var beta : float;
+	
+	if( accel > 0.0001f ){
+		beta = speed * Mathf.Sqrt( resistance / accel );
+		constant = Mathf.Log( ( beta + 1 ) / ( 1 - beta ) ) / 2.0f;
+	}
+	else{
+		constant = 0.0f;
+	}
+
+	speed = Mathf.Sqrt( accel / resistance ) * tanh( constant + ( 1 * Mathf.Sqrt( resistance * acceleration ) / mass ) );*/
+	
+	speed += accel;
+	speed -= resistance * speed / mass;
+	
 	if( speed > maxSpeed ){
 		speed = maxSpeed;
 	}
@@ -118,11 +148,16 @@ function Update()
 		UseItem();
 	}
 	
-	UpdateSpeed();
-
-	/*transform.position.x -= speed * Mathf.Sin( dirAngle.y ) * Mathf.Cos( dirAngle.x );
-	transform.position.y += speed * Mathf.Sin( dirAngle.x );
-	transform.position.z += speed * Mathf.Cos( dirAngle.y ) * Mathf.Cos( dirAngle.x );*/
+	var accel : float;
+	
+	if( inputStats[ InputState.ACCELERATE ] ){
+		accel = acceleration;
+	}
+	else{
+		accel = 0.0f;
+	}
+	
+	UpdateSpeed( accel );
 	
 	transform.Translate( 0, 0, speed );
 
@@ -182,8 +217,8 @@ function OnTriggerEnter( col : Collider )
 	// Colide with wall.
 	if( col.gameObject.tag == "Wall" ){
 		speed = -speed * 0.1;
-		if( speed > -0.03 ){
-			speed = -0.03;
+		if( speed > -0.1 ){
+			speed = -0.1;
 		}
 	}
 }
