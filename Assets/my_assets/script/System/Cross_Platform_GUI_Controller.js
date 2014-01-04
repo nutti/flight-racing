@@ -9,7 +9,7 @@ var screen : Vector3;
 
 var cam : GameObject;
 
-var enable : boolean;
+var enable : boolean = true;
 
 function Update()
 {

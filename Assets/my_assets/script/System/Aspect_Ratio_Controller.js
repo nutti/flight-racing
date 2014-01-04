@@ -1,13 +1,10 @@
 ﻿#pragma strict
 
-var height : float;
-var width : float;
+var height : float = 960.0f;
+var width : float = 640.0f;
 var ratio : float;
 var rect : Rect;
-var enable : boolean;
-
-height = 960.0f;
-width = 640.0f;
+var enable : boolean = true;
 
 function Update()
 {
@@ -34,6 +31,7 @@ function Update()
 		cam.rect.width = 1.0f;
 		cam.rect.y = ( 1.0f - ratio ) / 2.0f;
 		cam.rect.height = ratio;
+		cam.orthographicSize = Screen.width / 2.0f;
 	}
 	else{
 		ratio = 1.0f / ratio;
@@ -41,11 +39,10 @@ function Update()
 		cam.rect.width = ratio;
 		cam.rect.y = 0.0f;
 		cam.rect.height = 1.0f;
+		cam.orthographicSize = Screen.height / 2.0f;
 	}
 	
 	rect = cam.rect;
-	
-	//Destroy( this );
 }
 
 @script AddComponentMenu( "RashFlight/AspectRatioController" )
