@@ -126,7 +126,7 @@
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Plugins\AstarPathfindingProject\ExampleScenes\Materials\Projector Multiply.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
-     <None Include="Assets\my_assets\test_prefub\Texture_Mask_Shader.shader" />
+     <None Include="Assets\test_prefub\Texture_Mask_Shader.shader" />
      <None Include="Assets\Plugins\AstarPathfindingProject\ExampleScenes\Materials\DiffuseAlwaysVisible.shader" />
      <None Include="Assets\iTweenEditor\README.txt" />
      <None Include="Assets\AstarPathfindingEditor\Editor\EditorAssets\Materials\Navmesh.shader" />
@@ -151,7 +151,7 @@
      <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap AlphaTest.shader" />
      <None Include="Assets\Plugins\AstarPathfindingProject\Plugins\JsonFx\License.txt" />
      <None Include="Assets\Plugins\AstarPathfindingProject\Plugins\JsonFx\Readme.txt" />
-     <None Include="Assets\my_assets\test_prefub\Texture_Mask_myShader.shader" />
+     <None Include="Assets\test_prefub\Texture_Mask_myShader.shader" />
      <None Include="Assets\Standard Assets\Tessellation Shaders\BumpedSpecularDisplacement.shader" />
      <None Include="Assets\my_assets\shader\Rash_Flight_Title_Background_UI_Effect.shader" />
      <None Include="Assets\Plugins\AstarPathfindingProject\link.xml" />

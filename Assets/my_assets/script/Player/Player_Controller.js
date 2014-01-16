@@ -22,6 +22,7 @@ enum InputState
 	LEFT		= 3,
 	USE_ITEM	= 4,
 	ACCELERATE	= 5,
+	BRAKE		= 6,
 	INPUT_TOTAL
 }
 
@@ -61,7 +62,7 @@ function UpdateInputStats()
 	var useItemInput = Input.GetAxisRaw( "Use Item" );
 	var accelInput = Input.GetAxisRaw( "Acceleration" );
 	
-	for( var i = 0; i < InputState.INPUT_TOTAL; ++i ){
+	for( var i = 0; i < InputState.INPUT_TOTAL - 2; ++i ){
 		inputStats[ i ] = false;
 	}
 
@@ -83,9 +84,9 @@ function UpdateInputStats()
 		inputStats[ InputState.USE_ITEM ] = true;
 	}
 	
-	if( accelInput > 0 ){
-		inputStats[ InputState.ACCELERATE ] = true;
-	}
+	//if( accelInput > 0 ){
+	//	inputStats[ InputState.ACCELERATE ] = true;
+	//}
 }
 
 function tanh( val : float ) : float
@@ -97,24 +98,15 @@ function tanh( val : float ) : float
 
 function UpdateSpeed( accel : float )
 {
-/*	var constant : float;
-	var beta : float;
-	
-	if( accel > 0.0001f ){
-		beta = speed * Mathf.Sqrt( resistance / accel );
-		constant = Mathf.Log( ( beta + 1 ) / ( 1 - beta ) ) / 2.0f;
-	}
-	else{
-		constant = 0.0f;
-	}
-
-	speed = Mathf.Sqrt( accel / resistance ) * tanh( constant + ( 1 * Mathf.Sqrt( resistance * acceleration ) / mass ) );*/
-	
 	speed += accel;
 	speed -= resistance * speed / mass;
+
 	
 	if( speed > maxSpeed ){
 		speed = maxSpeed;
+	}
+	else if( speed < -maxSpeed ){
+		speed = -maxSpeed;
 	}
 }
 
@@ -152,6 +144,9 @@ function Update()
 	
 	if( inputStats[ InputState.ACCELERATE ] ){
 		accel = acceleration;
+	}
+	else if( inputStats[ InputState.BRAKE ] ){
+		accel = -acceleration;
 	}
 	else{
 		accel = 0.0f;
@@ -237,12 +232,12 @@ function AddItem( arg : int[] )
 	}
 }
 
-function OnGUI()
+/*function OnGUI()
 {
 	GUI.Label( Rect( 10, 10, 100, 30 ), "Item ID : " + itemID );
 	GUI.Label( Rect( 10, 30, 100, 50 ), "Item Num : " + itemNum );
 	GUI.Label( Rect( 10, 50, 100, 40 ), "Barrier Time : " + barrierTime );
-}
+}*/
 
 // Crashed (Stop movement).
 function Crash()
@@ -255,4 +250,20 @@ function Crash()
 	curState = EnemyState.CRASHED;
 }
 
-@script AddComponentMenu( "Player/PlayerController" )
+function Accelerate()
+{
+	inputStats[ InputState.ACCELERATE ] = true;
+}
+
+function NoInput()
+{
+	inputStats[ InputState.ACCELERATE ] = false;
+	inputStats[ InputState.BRAKE ] = false;
+}
+
+function Brake()
+{
+	inputStats[ InputState.BRAKE ] = true;
+}
+
+@script AddComponentMenu( "RashFlight/Player/PlayerController" )

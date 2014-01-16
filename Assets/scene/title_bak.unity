@@ -407,56 +407,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3edb3fa417e7ad448702b2d4246e482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplyTitle: 1.10000002
+  multiplyTitle: 0
   multiplyStart: 1.29999995
   multiplyConfig: 1.29999995
   multiplyCopyRight: 0
---- !u!1 &760004643
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 760004645}
-  - 131: {fileID: 760004644}
-  m_Layer: 0
-  m_Name: Background
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!131 &760004644
-GUITexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 760004643}
-  m_Enabled: 1
-  m_Texture: {fileID: 2800000, guid: 51d4b9596bd38bd4baab3a5037ca52fa, type: 3}
-  m_Color: {r: .683823526, g: .683823526, b: .683823526, a: 1}
-  m_PixelInset:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  m_LeftBorder: 0
-  m_RightBorder: 0
-  m_TopBorder: 0
-  m_BottomBorder: 0
---- !u!4 &760004645
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 760004643}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .5, y: .5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &937909506
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,52 +547,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!1 &2098172137
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2098172139}
-  - 131: {fileID: 2098172138}
-  m_Layer: 0
-  m_Name: Background UI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!131 &2098172138
-GUITexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2098172137}
-  m_Enabled: 1
-  m_Texture: {fileID: 2800000, guid: 2d4c0d756dfa097499158fbd4a2ed2bb, type: 3}
-  m_Color: {r: .566176474, g: .566176474, b: .566176474, a: .541176498}
-  m_PixelInset:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  m_LeftBorder: 0
-  m_RightBorder: 0
-  m_TopBorder: 0
-  m_BottomBorder: 0
---- !u!4 &2098172139
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2098172137}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .5, y: .5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1001 &2109643991
 Prefab:
   m_ObjectHideFlags: 0
@@ -686,10 +594,6 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 606
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: e518f47f7c2c5aa43acbad5dbc526fe0, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e518f47f7c2c5aa43acbad5dbc526fe0, type: 2}
   m_RootGameObject: {fileID: 937909506}
@@ -725,7 +629,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: db55ebdb9473a4a80a0037f64aafccce, type: 2}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -761,7 +665,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2139686918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.94796753, y: -21.8648376, z: 14.4308548}
-  m_LocalScale: {x: 208.657562, y: 87.751091, z: 20.0860367}
+  m_LocalPosition: {x: 2.94796753, y: -45.3283997, z: 14.4308548}
+  m_LocalScale: {x: 225.708557, y: 83.7092514, z: 19.1608677}
   m_Children: []
   m_Father: {fileID: 0}

@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Rash_Flight_Ttile_Background
-  m_Shader: {fileID: 4800000, guid: 52f88a60ce75f374d9d8aff63e779d36, type: 3}
+  m_Name: Rash_Flight_Stage_Accel_Button
+  m_Shader: {fileID: 4800000, guid: d74154a7ef8fddf4fa0952dad849d40b, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,19 +17,12 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 51d4b9596bd38bd4baab3a5037ca52fa, type: 3}
+          m_Texture: {fileID: 2800000, guid: 193cb64724f311a40a4681715864dce2, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _MixTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 7dee0c175e6ff0940914ae2a78f9a6df, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Mask
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -37,48 +30,68 @@ Material:
     m_Floats:
       data:
         first:
-          name: _Cutoff
-        second: .100000001
-      data:
-        first:
           name: PixelSnap
         second: 0
       data:
         first:
           name: _X
-        second: .392857164
+        second: 0
       data:
         first:
           name: _Y
-        second: .625
+        second: 0
       data:
         first:
           name: _Width
-        second: .43750003
+        second: 0
       data:
         first:
           name: _Multiply
-        second: .892856956
-      data:
-        first:
-          name: _WIDTH
-        second: .0892857164
+        second: 1
       data:
         first:
           name: _CenterX
-        second: .5
+        second: 0
       data:
         first:
           name: _CenterY
-        second: .49999997
+        second: 0
       data:
         first:
           name: _Height
-        second: .589285731
+        second: 0
       data:
         first:
           name: _ThickNess
-        second: .155357152
+        second: 0
+      data:
+        first:
+          name: _MultiplyTitle
+        second: 1
+      data:
+        first:
+          name: _MultiplyStart
+        second: 1
+      data:
+        first:
+          name: _MultiplyConfig
+        second: 1
+      data:
+        first:
+          name: _StartY
+        second: 1
+      data:
+        first:
+          name: _ConfigY
+        second: 1
+      data:
+        first:
+          name: _MultiplyCopyRight
+        second: 1
+      data:
+        first:
+          name: _CopyRightY
+        second: 1
     m_Colors:
       data:
         first:
