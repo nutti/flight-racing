@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Rash_Flight_Stage_Accel_Button
+  m_Name: Rash_Flight_Stage_Brake_Button
   m_Shader: {fileID: 4800000, guid: d74154a7ef8fddf4fa0952dad849d40b, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
@@ -17,7 +17,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 387ffebe4892c1f48ae89a58b346daf0, type: 3}
+          m_Texture: {fileID: 2800000, guid: 7631aecb4a195e348bb7243c8165e838, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -28,38 +28,6 @@ Material:
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
-      data:
-        first:
-          name: PixelSnap
-        second: 0
-      data:
-        first:
-          name: _MultiplyTitle
-        second: 1
-      data:
-        first:
-          name: _MultiplyStart
-        second: 1
-      data:
-        first:
-          name: _MultiplyConfig
-        second: 1
-      data:
-        first:
-          name: _StartY
-        second: 1
-      data:
-        first:
-          name: _ConfigY
-        second: 1
-      data:
-        first:
-          name: _MultiplyCopyRight
-        second: 1
-      data:
-        first:
-          name: _CopyRightY
-        second: 1
       data:
         first:
           name: _X
@@ -76,22 +44,6 @@ Material:
         first:
           name: _Multiply
         second: 1
-      data:
-        first:
-          name: _CenterX
-        second: 0
-      data:
-        first:
-          name: _CenterY
-        second: 0
-      data:
-        first:
-          name: _Height
-        second: 0
-      data:
-        first:
-          name: _ThickNess
-        second: 0
     m_Colors:
       data:
         first:
