@@ -11,6 +11,9 @@ var speedMeterGUI : GUIText;
 var lap : int = 1;
 var lapTotal : int = 3;
 
+var player : GameObject;
+var playerCamera : Camera;
+
 private var lapTime : float[];
 private var timeTotal : float = 0.0f;
 
@@ -87,8 +90,6 @@ function OnGUI()
 	}
 	
 	// speed.
-	var player : GameObject;
-	player = GameObject.Find( "Player/Player" );
 	if( player && speedMeterGUI ){
 		speedMeterGUI.text = Mathf.FloorToInt( ( player.GetComponent( Player_Controller ).speed * 90.0f * 3600.0f / 1000.0f ) ) + " km/h";
 	}
@@ -110,6 +111,34 @@ function Update()
 	timeTotal = 0.0f;
 	for( i = 0; i < lapTime.Length; ++i ){
 		timeTotal += lapTime[ i ];
+	}
+	
+	if( !player || !playerCamera ){
+		return;
+	}
+	
+	// input from GUI.
+	if( Input.GetMouseButtonDown( 0 ) ){
+		var clickedPos : Vector3;
+		var ray : Ray;
+		var hit : RaycastHit;
+		var hitObject : GameObject;
+
+		clickedPos = Input.mousePosition;
+		ray = playerCamera.ScreenPointToRay( clickedPos );
+		
+		if( Physics.Raycast( ray, hit ) ){
+			hitObject = hit.collider.gameObject;
+			if( hitObject.name == "Accel Button" ){
+				player.GetComponent( Player_Controller ).Accelerate();
+			}
+			else if( hitObject.name == "Brake Button" ){
+				player.GetComponent( Player_Controller ).Brake();
+			}
+		}
+	}
+	if( Input.GetMouseButtonUp( 0 ) ){
+		player.GetComponent( Player_Controller ).NoInput();
 	}
 }
 

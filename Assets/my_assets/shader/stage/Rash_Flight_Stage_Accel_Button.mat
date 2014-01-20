@@ -34,6 +34,22 @@ Material:
         second: 0
       data:
         first:
+          name: _X
+        second: 0
+      data:
+        first:
+          name: _Y
+        second: 0
+      data:
+        first:
+          name: _Width
+        second: 0
+      data:
+        first:
+          name: _Multiply
+        second: .732142866
+      data:
+        first:
           name: _MultiplyTitle
         second: 1
       data:
@@ -62,22 +78,6 @@ Material:
         second: 1
       data:
         first:
-          name: _X
-        second: 0
-      data:
-        first:
-          name: _Y
-        second: 0
-      data:
-        first:
-          name: _Width
-        second: 0
-      data:
-        first:
-          name: _Multiply
-        second: 1
-      data:
-        first:
           name: _CenterX
         second: 0
       data:
@@ -96,4 +96,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: .83088237, g: .818663538, b: .818663538, a: 1}

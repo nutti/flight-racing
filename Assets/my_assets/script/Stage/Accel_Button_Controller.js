@@ -19,3 +19,5 @@ function OnMouseUp()
 	
 	player.GetComponent( Player_Controller ).NoInput();
 }
+
+@script AddComponentMenu( "RashFlight/Stage/AccelButtonController" )

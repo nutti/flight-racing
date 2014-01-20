@@ -84,9 +84,9 @@ function UpdateInputStats()
 		inputStats[ InputState.USE_ITEM ] = true;
 	}
 	
-	//if( accelInput > 0 ){
-	//	inputStats[ InputState.ACCELERATE ] = true;
-	//}
+	if( accelInput > 0 ){
+		inputStats[ InputState.ACCELERATE ] = true;
+	}
 }
 
 function tanh( val : float ) : float
@@ -211,9 +211,9 @@ function OnTriggerEnter( col : Collider )
 	}
 	// Colide with wall.
 	if( col.gameObject.tag == "Wall" ){
-		speed = -speed * 0.1;
-		if( speed > -0.1 ){
-			speed = -0.1;
+		speed = -speed * 0.5;
+		if( speed > -0.5 ){
+			speed = -0.5;
 		}
 	}
 }
