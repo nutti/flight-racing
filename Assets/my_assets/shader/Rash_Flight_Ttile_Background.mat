@@ -17,14 +17,14 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 51d4b9596bd38bd4baab3a5037ca52fa, type: 3}
+          m_Texture: {fileID: 2800000, guid: 3396d6b92caa1224e8a94f537940d3cd, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _MixTex
         second:
-          m_Texture: {fileID: 2800000, guid: 7dee0c175e6ff0940914ae2a78f9a6df, type: 3}
+          m_Texture: {fileID: 2800000, guid: 0c1c36dc6e0d47244a1938ee8fe49816, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -61,10 +61,6 @@ Material:
         second: .892856956
       data:
         first:
-          name: _WIDTH
-        second: .0892857164
-      data:
-        first:
           name: _CenterX
         second: .5
       data:
@@ -79,6 +75,10 @@ Material:
         first:
           name: _ThickNess
         second: .155357152
+      data:
+        first:
+          name: _WIDTH
+        second: .0892857164
     m_Colors:
       data:
         first:

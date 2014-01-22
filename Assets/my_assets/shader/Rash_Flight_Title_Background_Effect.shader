@@ -129,6 +129,7 @@
 					}
 				}
 				
+				//base.r += add.r;
 				base.b += add.b;
 				base.g += add.g;
 				

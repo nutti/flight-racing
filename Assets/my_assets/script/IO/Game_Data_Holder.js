@@ -1,9 +1,9 @@
 ﻿#pragma strict
 
-function LoadProgress( player : int, stage : int ) : float
+function LoadProgress( player : int, stage : int, level : int ) : float
 {
 	var key : String;
-	key = "Progress.Player" + player + ".Stage" + stage;
+	key = "Progress.Player" + player + ".Stage" + stage + ".Level" + level;
 	
 	return gameObject.GetComponent( Save_Data_Wrapper ).LoadInt( key );
 }
@@ -16,10 +16,10 @@ function LoadRecord( player : int, stage : int, level : int ) : float
 	return gameObject.GetComponent( Save_Data_Wrapper ).LoadFloat( key );
 }
 
-function SaveProgress( player : int, stage : int, progress : int )
+function SaveProgress( player : int, stage : int, level : int, progress : int )
 {
 	var key : String;
-	key = "Progress.Player" + player + ".Stage" + stage;
+	key = "Progress.Player" + player + ".Stage" + stage + ".Level" + level;
 	
 	gameObject.GetComponent( Save_Data_Wrapper ).SaveInt( key, progress );
 }

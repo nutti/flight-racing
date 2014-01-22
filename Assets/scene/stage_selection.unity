@@ -282,6 +282,8 @@ GameObject:
   - 114: {fileID: 1536970663}
   - 114: {fileID: 1536970666}
   - 114: {fileID: 1536970665}
+  - 114: {fileID: 1536970667}
+  - 114: {fileID: 1536970668}
   m_Layer: 0
   m_Name: Stage Selection
   m_TagString: Untagged
@@ -304,6 +306,8 @@ MonoBehaviour:
   selectedLevel: 0
   selectedPlayer: 0
   stageRecord: 0
+  stageProgress: 0
+  nextProgressTime: 0
 --- !u!4 &1536970664
 Transform:
   m_ObjectHideFlags: 0
@@ -335,6 +339,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d15613be9e770c47ac6bc72473b7367, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1536970667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1536970662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d71a84d1d73ee74a95d792965604235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1536970668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1536970662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a1b4a68392b36e439fc57d74aa87673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2109643991

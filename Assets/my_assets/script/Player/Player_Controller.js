@@ -1,12 +1,16 @@
 ﻿#pragma strict
 
 var speed = 0.000;
-var angularSpeed = 1.5;
+var angularSpeedX = 1.5;
+var angularSpeedY = 1.5;
+var maxAngularSpeed = 1.5;
 var acceleration = 0.001;
 var mass = 1.0;
 var resistance = 0.0001;
 var maxSpeed = 0.45;
 var dirAngle : Vector3;
+
+var stageGUI : GameObject;
 
 var items : Transform[];
 var itemID : int;		// Item ID which player has.
@@ -54,30 +58,36 @@ function GetDirAngle()
 	return dirAngle;
 }
 
-// Update input status.
-function UpdateInputStats()
+function UpdateInputStatusPC()
 {
 	var verticalInput = Input.GetAxisRaw( "Player Vertical Move" );
 	var horizontalInput = Input.GetAxisRaw( "Player Horizontal Move" );
 	var useItemInput = Input.GetAxisRaw( "Use Item" );
 	var accelInput = Input.GetAxisRaw( "Acceleration" );
 	
+	angularSpeedX = 0.0f;
+	angularSpeedY = 0.0f;
+	
 	for( var i = 0; i < InputState.INPUT_TOTAL - 2; ++i ){
 		inputStats[ i ] = false;
 	}
 
 	if( verticalInput > 0 ){
-		inputStats[ InputState.UP ] = true;
+		//inputStats[ InputState.UP ] = true;
+		angularSpeedY = maxAngularSpeed;
 	}
 	else if( verticalInput < 0 ){
-		inputStats[ InputState.DOWN ] = true;
+		//inputStats[ InputState.DOWN ] = true;
+		angularSpeedY = -maxAngularSpeed;
 	}
 	
 	if( horizontalInput > 0 ){
-		inputStats[ InputState.RIGHT ] = true;
+		//inputStats[ InputState.RIGHT ] = true;
+		angularSpeedX = -maxAngularSpeed;
 	}
 	else if( horizontalInput < 0 ){
-		inputStats[ InputState.LEFT ] = true;
+		//inputStats[ InputState.LEFT ] = true;
+		angularSpeedX = maxAngularSpeed;
 	}
 	
 	if( useItemInput > 0 ){
@@ -89,11 +99,34 @@ function UpdateInputStats()
 	}
 }
 
-function tanh( val : float ) : float
+function UpdateInputStatusIOS()
 {
-	var e = Mathf.Exp( val );
+	angularSpeedX = -Input.acceleration.y;
+	angularSpeedY = Input.acceleration.x;
 	
-	return ( e - 1.0f / e ) / ( e + 1.0f / e );
+	if( angularSpeedX > maxAngularSpeed ){
+		angularSpeedX = maxAngularSpeed;
+	}
+	if( angularSpeedX < -maxAngularSpeed ){
+		angularSpeedX = -maxAngularSpeed;
+	}
+	if( angularSpeedY > maxAngularSpeed ){
+		angularSpeedY = maxAngularSpeed;
+	}
+	if( angularSpeedY < -maxAngularSpeed ){
+		angularSpeedY = -maxAngularSpeed;
+	}
+}
+
+// Update input status.
+function UpdateInputStats()
+{
+	if( SystemInfo.operatingSystem.Contains( "Windows" ) || SystemInfo.operatingSystem.Contains( "Mac" ) ){
+		UpdateInputStatusPC();
+	}
+	else if( SystemInfo.operatingSystem.Contains( "iPhone" ) ){
+		UpdateInputStatusIOS();
+	}
 }
 
 function UpdateSpeed( accel : float )
@@ -117,23 +150,9 @@ function Update()
 	// Update input status.
 	UpdateInputStats();
 
-	if( inputStats[ InputState.RIGHT ] ){			// [TODO] bug
-		dirAngle.x += Mathf.Deg2Rad * 0.5;
-		transform.Rotate( Vector3( 1, 0, 0 ), - angularSpeed );
-	}
-	else if( inputStats[ InputState.LEFT ] ){		// [TODO] bug
-		dirAngle.x -= Mathf.Deg2Rad * 0.5;
-		transform.Rotate( Vector3( 1, 0, 0 ), angularSpeed );
-	}
-	
-	if( inputStats[ InputState.UP ] ){				// [TODO] bug
-		dirAngle.y -= Mathf.Deg2Rad * 0.5;
-		transform.Rotate( Vector3( 0, 1, 0 ), angularSpeed, Space.World );
-	}
-	else if( inputStats[ InputState.DOWN ] ){		// [TODO] bug
-		dirAngle.y += Mathf.Deg2Rad * 0.5;
-		transform.Rotate( Vector3( 0, 1, 0 ), - angularSpeed, Space.World );
-	}
+	// [TODO] bug
+	transform.Rotate( Vector3( 1, 0, 0 ), angularSpeedX );
+	transform.Rotate( Vector3( 0, 1, 0 ), angularSpeedY, Space.World );
 	
 	
 	if( inputStats[ InputState.USE_ITEM ] ){
@@ -216,6 +235,12 @@ function OnTriggerEnter( col : Collider )
 			speed = -0.5;
 		}
 	}
+	// Colide with route terminal.
+	if( col.gameObject.tag == "Check Point" ){
+		if( stageGUI ){
+			stageGUI.SendMessage( "OnCheckPoint", parseInt( col.gameObject.name ) );
+		}
+	}
 }
 
 // Add Item.
@@ -231,13 +256,6 @@ function AddItem( arg : int[] )
 		itemNum += num;
 	}
 }
-
-/*function OnGUI()
-{
-	GUI.Label( Rect( 10, 10, 100, 30 ), "Item ID : " + itemID );
-	GUI.Label( Rect( 10, 30, 100, 50 ), "Item Num : " + itemNum );
-	GUI.Label( Rect( 10, 50, 100, 40 ), "Barrier Time : " + barrierTime );
-}*/
 
 // Crashed (Stop movement).
 function Crash()

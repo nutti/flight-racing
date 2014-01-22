@@ -1,5 +1,9 @@
 ﻿#pragma strict
 
+var stageID : int;
+var stageLV : int;
+var playerID : int;
+
 var guiSkin : GUISkin;
 var lapTimePrefub : Transform;
 
@@ -8,6 +12,8 @@ var lapTimeGUI : Transform[];
 var lapGUI : GUIText;
 var speedMeterGUI : GUIText;
 
+var curLap : int = 1;
+var curCheckPoint : int = 0;
 var lap : int = 1;
 var lapTotal : int = 3;
 
@@ -36,6 +42,9 @@ function Start()
 			lapTimeGUI[ i ] = null;
 		}
 	}
+	playerID = gameObject.GetComponent( Global_Variable_Holder ).GetInt( "PLAYER_ID" );
+	stageID = gameObject.GetComponent( Global_Variable_Holder ).GetInt( "STAGE_ID" );
+	stageLV = gameObject.GetComponent( Global_Variable_Holder ).GetInt( "STAGE_LV" );
 	Reset();
 }
 
@@ -71,17 +80,19 @@ function OnGUI()
 	}
 	
 	// lap time.
-	var guiText : GUIText = null;
-	if( lapTimeGUI[ lap - 1 ] ){
-		guiText = lapTimeGUI[ lap - 1 ].GetComponent( GUIText );
-	}
-	if( guiText ){
-		base = Mathf.FloorToInt( lapTime[ lap - 1 ] * 100 );
-		mili = ( base % 100 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
-		sec = ( ( base / 100 ) % 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
-		min = ( ( base / 100 ) / 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
-		
-		guiText.text = min + ":" + sec + "." + mili;
+	for( i = 0; i < lap; ++i ){
+		var guiText : GUIText = null;
+		if( lapTimeGUI[ lap - 1 ] ){
+			guiText = lapTimeGUI[ lap - 1 ].GetComponent( GUIText );
+		}
+		if( guiText ){
+			base = Mathf.FloorToInt( lapTime[ lap - 1 ] * 100 );
+			mili = ( base % 100 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
+			sec = ( ( base / 100 ) % 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
+			min = ( ( base / 100 ) / 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
+			
+			guiText.text = min + ":" + sec + "." + mili;
+		}
 	}
 	
 	// lap.
@@ -140,6 +151,68 @@ function Update()
 	if( Input.GetMouseButtonUp( 0 ) ){
 		player.GetComponent( Player_Controller ).NoInput();
 	}
+}
+
+function FinalizeStage()
+{
+	var stageNextProgressTime : int;
+	var stageProgress : int;
+	var stageRecord : float;
+
+	stageNextProgressTime = GetComponent( Global_Variable_Holder ).GetInt( "STAGE_NEXT_PROGRESS_TIME" );
+	stageProgress = GetComponent( Global_Variable_Holder ).GetInt( "STAGE_PROGRESS" );
+	stageRecord = GetComponent( Global_Variable_Holder ).GetFloat( "STAGE_RECORD" );
+	
+	if( timeTotal < stageRecord ){
+		GetComponent( Game_Data_Holder ).SaveRecord( playerID, stageID, stageLV, timeTotal );
+	}
+	if( timeTotal < stageNextProgressTime ){
+		GetComponent( Game_Data_Holder ).SaveProgress( playerID, stageID, stageLV, stageProgress + 1 );
+	}
+
+	Application.LoadLevel( "stage_selection" );
+}
+
+function OnCheckPoint( checkPoint : int )
+{
+	var nextCheckPoint : int;
+	
+	nextCheckPoint = ( curCheckPoint + 1 ) % 3;
+	
+	// forward
+	if( checkPoint == nextCheckPoint ){
+		++curCheckPoint;
+		if( curCheckPoint >= 3 ){
+			++curLap;
+			if( curLap > lap ){
+				StartNextLap();
+			}
+			curCheckPoint = 0;
+		}
+	}
+	// back
+	else{
+		--curCheckPoint;
+		if( curCheckPoint < 0 ){
+			--curLap;
+			curCheckPoint = 2;
+		}
+	}
+}
+
+function StartNextLap()
+{
+	if( lap >= lapTotal ){
+		FinalizeStage();
+		return;
+	}
+
+	lapTimeGUI[ lap ] = Instantiate( lapTimePrefub );
+	lapTimeGUI[ lap ].GetComponent( GUI_Font_Size_Adjuster ).cam = GameObject.Find( "Player/Player Camera" );
+	lapTimeGUI[ lap ].transform.position.y -= lap * 0.05f;
+	lastGoalThroughTime = Time.time;
+	
+	++lap;
 }
 
 @script AddComponentMenu( "RashFlight/Stage/StageGUIController" )

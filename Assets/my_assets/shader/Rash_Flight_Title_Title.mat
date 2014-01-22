@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Rash_Flight_Title_Title
-  m_Shader: {fileID: 4800000, guid: d74154a7ef8fddf4fa0952dad849d40b, type: 3}
+  m_Shader: {fileID: 4800000, guid: f555270fc5d78c84f94adb4a54494a56, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,7 +17,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 2d4c0d756dfa097499158fbd4a2ed2bb, type: 3}
+          m_Texture: {fileID: 2800000, guid: 6f335a36be7165d4c918c81f40161800, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -66,8 +66,52 @@ Material:
         first:
           name: _Multiply
         second: 0
+      data:
+        first:
+          name: _MultiplyTitle
+        second: 1.17857146
+      data:
+        first:
+          name: _MultiplyStart
+        second: 1.26785707
+      data:
+        first:
+          name: _MultiplyConfig
+        second: 1.17857146
+      data:
+        first:
+          name: _StartY
+        second: .607142806
+      data:
+        first:
+          name: _ConfigY
+        second: .339285702
+      data:
+        first:
+          name: _MultiplyCopyRight
+        second: 1.17857146
+      data:
+        first:
+          name: _CopyRightY
+        second: .0714285672
+      data:
+        first:
+          name: _CenterX
+        second: 0
+      data:
+        first:
+          name: _CenterY
+        second: 0
+      data:
+        first:
+          name: _Height
+        second: 0
+      data:
+        first:
+          name: _ThickNess
+        second: 0
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: 0, g: 0, b: 0, a: .549019635}
+        second: {r: 1, g: 1, b: 1, a: .549019635}
