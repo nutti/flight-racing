@@ -20,4 +20,9 @@ function SaveFloat( key : String, val : float )
 	PlayerPrefs.SetFloat( key, val );
 }
 
+function DeleteAll()
+{
+	PlayerPrefs.DeleteAll();
+}
+
 @script AddComponentMenu( "RashFlight/System/SaveDataWrapper" )

@@ -17,11 +17,13 @@ function Start()
 
 function Update()
 {
-	if( counter == 0 ){
+	if( counter ==0 ){
 		DoInitialEffect();
 	}
+	
+	++counter;
 
-	if( !cam || moveToNextScene ){
+	if( !cam || moveToNextScene || counter < 120 ){
 		return;
 	}
 		
@@ -46,14 +48,17 @@ function Update()
 			hitObject = null;
 		}
 	}
-	
-	++counter;
 }
 
 function DoInitialEffect()
 {
-	ui.GetComponent( UI_Controller ).SendMessage( "OnEnterTitle" );
-	yield WaitForSeconds( 1 );
+	if( ui ){
+		ui.GetComponent( UI_Controller ).SendMessage( "OnEnterTitle" );
+	}
+	if( background ){
+		background.GetComponent( Background_Controller ).SendMessage( "OnEnterTitle" );
+	}
+	yield WaitForSeconds( 2 );
 }
 
 function MoveToStageSelection()
@@ -61,6 +66,9 @@ function MoveToStageSelection()
 	if( ui ){
 		ui.GetComponent( UI_Controller ).SendMessage( "OnLeaveTitle" );
 	}
-	yield WaitForSeconds( 1 );
+	if( background ){
+		background.GetComponent( Background_Controller ).SendMessage( "OnLeaveTitle" );
+	}
+	yield WaitForSeconds( 2 );
 	Application.LoadLevel( "stage_selection" );
 }

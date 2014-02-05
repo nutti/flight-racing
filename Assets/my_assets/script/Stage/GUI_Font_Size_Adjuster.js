@@ -12,8 +12,8 @@ function Update ()
 	
 	var ratio : float;
 	
-	ratio = cam.GetComponent( Aspect_Ratio_Controller ).ratio;
-	
+	ratio = Screen.height / cam.GetComponent( Aspect_Ratio_Controller ).height;
+
 	GetComponent( GUIText ).fontSize = ratio * fontSize;
 }
 

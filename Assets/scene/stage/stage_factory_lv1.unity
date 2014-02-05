@@ -1480,7 +1480,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  angularSpeed: 1.5
+  angularSpeedX: 1.5
+  angularSpeedY: 1.5
+  maxAngularSpeed: 1.5
   acceleration: .0299999993
   mass: 1
   resistance: .00999999978

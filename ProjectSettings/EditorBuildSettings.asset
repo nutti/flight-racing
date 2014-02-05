@@ -7,7 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/scene/title.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/flight_racing.unity
   - enabled: 0
     path: Assets/scene/title.unity
@@ -17,3 +17,7 @@ EditorBuildSettings:
     path: Assets/scene/stage_selection.unity
   - enabled: 1
     path: Assets/scene/stage/stage_factory_lv1.unity
+  - enabled: 1
+    path: Assets/scene/stage/stage_cave_lv1.unity
+  - enabled: 1
+    path: Assets/scene/stage/stage_volcano_lv1.unity

@@ -20,17 +20,17 @@ var lapTotal : int = 3;
 var player : GameObject;
 var playerCamera : Camera;
 
-private var lapTime : float[];
-private var timeTotal : float = 0.0f;
+private var lapTime : int[];
+private var timeTotal : int = 0;
 
-private var lastGoalThroughTime : float = 0.0f;
+private var lastGoalThroughTime : int;
 
 function Start()
 {
 	var i : int;
-	lapTime = new float[ lapTotal ];
+	lapTime = new int[ lapTotal ];
 	for( i = 0; i < lapTime.Length; ++i ){
-		lapTime[ i ] = 0.0f;
+		lapTime[ i ] = 0;
 	}
 	lapTimeGUI = new Transform[ lapTotal ];
 	for( i = 0; i < lapTimeGUI.Length; ++i ){
@@ -71,12 +71,12 @@ function OnGUI()
 		var sec : String;
 		var mili : String;
 		
-		base = Mathf.FloorToInt( timeTotal * 100 );
-		mili = ( base % 100 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
-		sec = ( ( base / 100 ) % 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
-		min = ( ( base / 100 ) / 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
+		//base = timeTotal / 10;
+		//mili = ( base % 100 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
+		//sec = ( ( base / 100 ) % 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
+		//min = ( ( base / 100 ) / 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
 		
-		timeTotalGUI.text = min + ":" + sec + "." + mili;
+		timeTotalGUI.text = GetDateString( timeTotal );;
 	}
 	
 	// lap time.
@@ -86,12 +86,12 @@ function OnGUI()
 			guiText = lapTimeGUI[ lap - 1 ].GetComponent( GUIText );
 		}
 		if( guiText ){
-			base = Mathf.FloorToInt( lapTime[ lap - 1 ] * 100 );
-			mili = ( base % 100 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
-			sec = ( ( base / 100 ) % 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
-			min = ( ( base / 100 ) / 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
+			//base = timeTotal / 10;
+			//mili = ( base % 100 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
+			//sec = ( ( base / 100 ) % 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
+			//min = ( ( base / 100 ) / 60 ).ToString().PadLeft( 2, System.Convert.ToChar( "0"[0] ) );
 			
-			guiText.text = min + ":" + sec + "." + mili;
+			guiText.text = GetDateString( lapTime[ i ] );;
 		}
 	}
 	
@@ -108,7 +108,7 @@ function OnGUI()
 
 function Reset()
 {
-	lastGoalThroughTime = Time.time;
+	lastGoalThroughTime = GetMilisecond( System.DateTime.Now );
 }
 
 function Update()
@@ -116,10 +116,10 @@ function Update()
 	var i : int;
 
 	// update lap time.
-	lapTime[ lap - 1 ] = Time.time - lastGoalThroughTime;
+	lapTime[ lap - 1 ] = GetMilisecond( System.DateTime.Now ) - lastGoalThroughTime;
 
 	// calculate time total.
-	timeTotal = 0.0f;
+	timeTotal = 0;
 	for( i = 0; i < lapTime.Length; ++i ){
 		timeTotal += lapTime[ i ];
 	}
@@ -155,19 +155,24 @@ function Update()
 
 function FinalizeStage()
 {
-	var stageNextProgressTime : int;
+	var stageProgressTime : int[] = new int[ 4 ];
 	var stageProgress : int;
-	var stageRecord : float;
+	var stageRecord : int;
 
-	stageNextProgressTime = GetComponent( Global_Variable_Holder ).GetInt( "STAGE_NEXT_PROGRESS_TIME" );
+	var i : int;
+	for( i = 0; i < stageProgressTime.Length; ++i ){
+		stageProgressTime[ i ] = GetComponent( Global_Variable_Holder ).GetInt( "STAGE_PROGRESS_TIME_" + i );
+	}
 	stageProgress = GetComponent( Global_Variable_Holder ).GetInt( "STAGE_PROGRESS" );
-	stageRecord = GetComponent( Global_Variable_Holder ).GetFloat( "STAGE_RECORD" );
+	stageRecord = GetComponent( Global_Variable_Holder ).GetInt( "STAGE_RECORD" );
 	
-	if( timeTotal < stageRecord ){
+	if( stageRecord < 0 || timeTotal < stageRecord ){
 		GetComponent( Game_Data_Holder ).SaveRecord( playerID, stageID, stageLV, timeTotal );
 	}
-	if( timeTotal < stageNextProgressTime ){
-		GetComponent( Game_Data_Holder ).SaveProgress( playerID, stageID, stageLV, stageProgress + 1 );
+	for( i = stageProgress + 1; i < stageProgressTime.Length; ++i ){
+		if( timeTotal < stageProgressTime[ i ] ){
+			GetComponent( Game_Data_Holder ).SaveProgress( playerID, stageID, stageLV, i );
+		}
 	}
 
 	Application.LoadLevel( "stage_selection" );
@@ -200,6 +205,26 @@ function OnCheckPoint( checkPoint : int )
 	}
 }
 
+function GetMilisecond( date : System.DateTime ) : int
+{
+	return ( ( ( date.Minute * 60 ) + date.Second ) * 1000 ) + date.Millisecond;
+}
+
+function GetDateString( milisec : int ) : String
+{
+	var base : int;
+	var min : int;
+	var sec : int;
+	var mili : int;
+
+	base = milisec / 10;
+	mili = ( base % 100 );
+	sec = ( ( base / 100 ) % 60 );
+	min = ( ( base / 100 ) / 60 );
+
+	return String.Format( "{0:D2}.{1:D2}.{2:D2}", min, sec, mili );
+}
+
 function StartNextLap()
 {
 	if( lap >= lapTotal ){
@@ -210,7 +235,7 @@ function StartNextLap()
 	lapTimeGUI[ lap ] = Instantiate( lapTimePrefub );
 	lapTimeGUI[ lap ].GetComponent( GUI_Font_Size_Adjuster ).cam = GameObject.Find( "Player/Player Camera" );
 	lapTimeGUI[ lap ].transform.position.y -= lap * 0.05f;
-	lastGoalThroughTime = Time.time;
+	lastGoalThroughTime = GetMilisecond( System.DateTime.Now );
 	
 	++lap;
 }

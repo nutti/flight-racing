@@ -34,16 +34,21 @@ function Update()
 	var mul : float;
 
 	switch( state ){
-		case State.LEAVE_TITLE:		
+		case State.LEAVE_TITLE:
 			mul = initialMultiply * ( 60 - counter ) / 60.0f;
 			SetBright( mul );
 			++counter;
 			break;
 		case State.ENTER_TITLE:
-			mul = initialMultiply * ( counter ) / 60.0f;
+			if( counter > 50 ){
+				mul = initialMultiply * ( counter - 50 ) / 70.0f;
+			}
+			else{
+				mul = 0.0f;
+			}
 			SetBright( mul );
 			++counter;
-			if( counter >= 60 ){
+			if( counter >= 120 ){
 				counter = 0;
 				state = State.NORMAL;
 			}
